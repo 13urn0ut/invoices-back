@@ -1,6 +1,6 @@
 const { query, checkExact } = require('express-validator');
 
-const filterValidator = [
+exports.filterValidator = [
   query('status')
     .trim()
     .optional()
@@ -12,5 +12,3 @@ const filterValidator = [
       `Invalid filter fields ${fields.map((field) => field.path).join(', ')}`,
   }),
 ];
-
-module.exports = filterValidator;
