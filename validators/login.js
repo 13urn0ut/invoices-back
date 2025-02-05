@@ -2,7 +2,7 @@ const { body } = require('express-validator');
 const argon2 = require('argon2');
 const { getUserByEmail } = require('../models/userModel');
 
-const validateLogin = [
+exports.validateLogin = [
   body('email')
     .trim()
     .notEmpty()
@@ -37,4 +37,3 @@ const validateLogin = [
     }),
 ];
 
-module.exports = validateLogin;

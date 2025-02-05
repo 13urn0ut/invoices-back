@@ -1,7 +1,7 @@
 const { body, checkExact } = require('express-validator');
 const { getUserByEmail } = require('../models/userModel');
 
-const validateNewUser = [
+exports.validateNewUser = [
   // check if body is not empty
   body().notEmpty().withMessage('User body must contain data'),
 
@@ -51,4 +51,3 @@ const validateNewUser = [
   checkExact([], { message: 'Invalid fields' }),
 ];
 
-module.exports = validateNewUser;

@@ -6,9 +6,9 @@ const {
   authenticateUser,
   logout,
 } = require('../controlers/authController');
-const validateNewUser = require('../validators/signup');
-const validateLogin = require('../validators/login');
-const validate = require('../validators/validate');
+const { validateNewUser } = require('../validators/signup');
+const { validateLogin } = require('../validators/login');
+const { validate } = require('../validators/validate');
 
 const router = express.Router();
 
