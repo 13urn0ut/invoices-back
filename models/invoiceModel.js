@@ -67,3 +67,12 @@ exports.getInvoiceByUserId = async (id) => {
   return invoice;
 };
 
+exports.getInvoiceStatusId = async (status) => {
+  const [invoiceStatusId] = await sql`
+        SELECT id
+        FROM invoice_statuses
+        WHERE status = ${status}    
+  `;
+
+  return invoiceStatusId;
+};
