@@ -46,7 +46,7 @@ exports.getAllInvoices = async (req, res, next) => {
   }
 };
 
-exports.getInvoice = async (req, res, next) => {
+exports.getInvoiceById = async (req, res, next) => {
   try {
     const { id } = req.params;
     const invoice = await getInvoiceById(id);

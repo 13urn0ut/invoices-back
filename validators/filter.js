@@ -1,12 +1,11 @@
-const { query, checkExact, validationResult } = require('express-validator');
+const { query, checkExact } = require('express-validator');
 
 const filterValidator = [
-  query('sort')
-    .optional()
+  query('status')
     .trim()
-    .toUpperCase()
-    .isIn(['ASC', 'DESC'])
-    .withMessage('Invalid sort'),
+    .optional()
+    .isIn(['draft', 'pending', 'paid'])
+    .withMessage('Invalid status'),
 
   checkExact([], {
     message: (fields) =>
