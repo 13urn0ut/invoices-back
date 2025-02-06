@@ -6,6 +6,8 @@ const {
   updateInvoice,
   deleteInvoice,
 } = require('../models/invoiceModel');
+const AppError = require('../utils/appError');
+
 exports.createInvoice = async (req, res, next) => {
   try {
     const { amount, user_id, due_date } = req.body;
