@@ -8,7 +8,7 @@ const {
 } = require('../models/invoiceModel');
 exports.createInvoice = async (req, res, next) => {
   try {
-    const { amount, userId: user_id, dueDate: due_date } = req.body;
+    const { amount, user_id, due_date } = req.body;
 
     const newInvoice = await createInvoice({
       amount,
@@ -56,7 +56,7 @@ exports.getInvoiceById = async (req, res, next) => {
     res.status(200).json({
       status: 'success',
       data: invoice,
-    });  
+    });
   } catch (err) {
     next(err);
   }
@@ -65,7 +65,15 @@ exports.getInvoiceById = async (req, res, next) => {
 exports.updateInvoice = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const updatedInvoice = await updateInvoice(id, req.body);
+    const invoice = req.body;
+
+    const invoice_status_id = await getInvoiceStatusId(invoice.invoice_status);
+    delete invoice.invoice_status;
+
+    const updatedInvoice = await updateInvoice(id, {
+      ...invoice,
+      invoice_status_id,
+    });
 
     if (!updatedInvoice) throw new AppError('Invoice not found', 404);
 

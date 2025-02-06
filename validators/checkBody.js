@@ -59,16 +59,16 @@ exports.checkUpdateInvoiceBody = [
 
   body('due_date').trim().optional(),
 
-  body('invoice_status_id')
+  body('invoice_status')
     .trim()
     .optional()
-    .isInt()
-    .withMessage('Invoice status id is not valid')
+    .isIn(['draft', 'pending', 'paid'])
+    .withMessage('Invoice status is not valid')
     .custom(async (value) => {
       try {
-        const invoiceStatus = await getInvoiceStatusId(value);
+        const invoiceStatusId = await getInvoiceStatusId(value);
 
-        if (!invoiceStatus) throw new Error('Invoice status not found');
+        if (!invoiceStatusId) throw new Error('Invoice status not found');
 
         return true;
       } catch (err) {
@@ -76,5 +76,5 @@ exports.checkUpdateInvoiceBody = [
       }
     }),
 
-  checkExact([], { message: 'Invalid fields' }),    
+  checkExact([], { message: 'Invalid fields' }),
 ];

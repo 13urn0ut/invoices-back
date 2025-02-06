@@ -2,7 +2,7 @@ const invoiceRouter = require('express').Router();
 const {
   createInvoice,
   getAllInvoices,
-  getInvoiceById,
+  // getInvoiceById,
   updateInvoice,
   deleteInvoice,
 } = require('../controlers/invoiceController');

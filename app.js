@@ -4,6 +4,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const userRouter = require('./routes/userRoutes');
+const invoiceRouter = require('./routes/invoiceRoutes');
 const errorHandler = require('./middleware/errorHandler');
 const AppError = require('./utils/appError');
 
@@ -40,6 +41,7 @@ app.use(cors({
 //naudojame tourRouter, procesas vadinasi "mounting the router"
 
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/invoices', invoiceRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
