@@ -46,7 +46,7 @@ exports.signup = async (req, res, next) => {
     sendCookie(res, token);
 
     createdUser.password = undefined;
-    createdUser.id = undefined;
+    // createdUser.id = undefined;
 
     res.status(201).json({
       status: 'success',
@@ -70,7 +70,7 @@ exports.login = async (req, res, next) => {
     sendCookie(res, token);
 
     user.password = undefined;
-    user.id = undefined;
+    // user.id = undefined;
 
     res.status(200).json({
       status: 'success',
@@ -94,7 +94,7 @@ exports.protect = async (req, res, next) => {
     if (!user) throw new AppError('User not found', 404);
 
     user.password = undefined;
-    user.id = undefined;
+    // user.id = undefined;
 
     req.user = user;
 

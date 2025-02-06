@@ -18,10 +18,12 @@ exports.createInvoice = async (invoice) => {
 
 exports.getAllInvoices = async (statusId) => {
   const invoices = await sql`
-        SELECT invoices.*, invoice_statuses.status
+        SELECT invoices.*, invoice_statuses.status, users.first_name, users.last_name
         FROM invoices
         JOIN invoice_statuses
         ON invoice_statuses.id = invoices.invoice_status_id
+        JOIN users
+        ON users.id = invoices.user_id
         ${statusId ? sql`WHERE invoice_status_id = ${statusId}` : sql``}
     `;
 
