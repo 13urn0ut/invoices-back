@@ -19,6 +19,8 @@ exports.createInvoice = async (req, res, next) => {
       due_date,
     });
 
+    newInvoice.due_date = newInvoice.due_date.toDateString();
+
     res.status(201).json({
       status: 'success',
       data: newInvoice,

@@ -41,8 +41,6 @@ exports.getInvoiceById = async (id) => {
 };
 
 exports.updateInvoice = async (id, invoice) => {
-  console.log(invoice);
-
   const [updatedInvoice] = await sql`
         UPDATE invoices
         SET ${sql(invoice)}
