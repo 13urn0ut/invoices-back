@@ -16,8 +16,9 @@ exports.createInvoice = async (invoice) => {
   return newInvoice;
 };
 
-exports.getAllInvoices = async (statusId) => {
-  const invoices = await sql`
+exports.getAllInvoices = async (statusId, page, limit) => {
+  const { invoices, count : { count } } = await sql.begin(async () => {
+    const invoices = await sql`
         SELECT invoices.*, invoice_statuses.status, users.first_name, users.last_name
         FROM invoices
         JOIN invoice_statuses
@@ -25,9 +26,19 @@ exports.getAllInvoices = async (statusId) => {
         JOIN users
         ON users.id = invoices.user_id
         ${statusId ? sql`WHERE invoice_status_id = ${statusId}` : sql``}
+        ${page ? sql`LIMIT ${limit} OFFSET ${(page - 1) * limit}` : sql``}
     `;
 
-  return invoices;
+    const [count] = await sql`
+      SELECT COUNT(id)
+      FROM invoices
+      ${statusId ? sql`WHERE invoice_status_id = ${statusId}` : sql``}
+  `;
+
+    return { invoices, count };
+  });
+
+  return {invoices, count};
 };
 
 exports.getInvoiceById = async (id) => {

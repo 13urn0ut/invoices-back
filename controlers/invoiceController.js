@@ -33,10 +33,12 @@ exports.createInvoice = async (req, res, next) => {
 exports.getAllInvoices = async (req, res, next) => {
   try {
     const status = req.query?.status || null;
+    const page = req.query?.page || 1;
+    const limit = req.query?.limit || 10;
 
     const statusId = await getInvoiceStatusId(status);
 
-    const invoices = await getAllInvoices(statusId);
+    const invoices = await getAllInvoices(statusId, page, limit);
 
     if (!invoices || invoices.length === 0)
       throw new AppError('Invoices not found', 404);
